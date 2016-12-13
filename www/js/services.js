@@ -8,7 +8,6 @@
 
   function PetsData($http) {
       var vm = this
-      vm.data = {}
       vm.pets = []
 
       vm.getPets = function(data){
@@ -23,10 +22,12 @@
         })
       }
 
+      vm.chosenPets = []
+
       var service = {
-        data: vm.data,
         pets: vm.pets,
-        getPets: vm.getPets
+        getPets: vm.getPets,
+        chosenPets: vm.chosenPets
       }
 
       return service

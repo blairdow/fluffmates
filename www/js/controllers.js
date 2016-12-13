@@ -12,6 +12,21 @@
     function PetsCtrl($http, PetsData) {
         var vm = this
         vm.pets = PetsData.pets
+
+        vm.choosePet = function(pet){
+            if(PetsData.chosenPets.indexOf(pet) < 0){
+              pet.chosen = true
+              PetsData.chosenPets.push(pet)
+
+              if(PetsData.chosenPets.length > 3){
+                var removed = PetsData.chosenPets.shift()
+                removed.chosen = false
+                pet.chosen = true
+                console.log('removed', removed)
+              }
+            }
+            console.log('chosen pets', PetsData.chosenPets)
+        }
     }
 
     function AccountCtrl () {

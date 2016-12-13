@@ -2,10 +2,14 @@
     <ion-content>
         <h2>Pets Page</h2>
         <ion-list>
-            <ion-item ng-repeat="pet in pets.pets">
-                <img src="{{pet.media.photos.photo[0].$t}}" alt="">
-                {{pet.name.$t}}
+            <ion-item class="pet-main" ng-repeat="pet in pets.pets" ng-class="{ 'chosen-pet': pet.chosen }" on-double-tap="pets.choosePet(pet)">
+                <img class="pet-main-image" on-tap="pets.showPetInfo()" src="{{pet.media.photos.photo[0].$t}}" alt="">
+
+                <span on-tap="pets.showPetInfo()">{{pet.name.$t}}</span>
+
             </ion-item>
         </ion-list>
   </ion-content>
 </ion-view>
+
+<!-- <button on-double-tap="onDoubleTap()" class="button">Test</button> -->
