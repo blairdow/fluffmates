@@ -1,0 +1,55 @@
+angular.module('InfamousCriminals')
+.controller('CriminalsController', CriminalsController)
+.controller('CriminalsListController', CriminalsListController)
+.controller('CriminalsAddController', CriminalsAddController)
+
+CriminalsController.$inject = ['$http', 'CriminalsService'];
+CriminalsListController.$inject = ['$http', 'CriminalsService'];
+CriminalsAddController.$inject = ['CriminalsService', '$state'];
+
+function CriminalsController($http, CriminalsService){
+  var self = this;
+  self.addCriminal = addCriminal;
+    
+  self.newCriminal = CriminalsService.newCriminal;
+  
+  function addCriminal(){
+    CriminalsService.addCriminal().then(function(){
+        CriminalsService.getCriminals().then(function(){
+            self.all = CriminalsService.criminals
+        })
+        self.newCriminal = {}
+    })
+  }
+
+}
+
+function CriminalsListController($http, CriminalsService){
+    var vm = this
+    vm.criminals = []
+    vm.deleteCriminal = deleteCriminal
+    
+    CriminalsService.getCriminals().then(function (){
+        vm.criminals = CriminalsService.criminals
+    })
+    
+    function deleteCriminal(criminal){
+        CriminalsService.deleteCriminal(criminal).then( function(){
+            vm.criminals = CriminalsService.criminals
+        })
+    }
+    
+}
+
+function CriminalsAddController(CriminalsService, $state){
+  var vm = this
+  vm.addCriminal = addCriminal;  
+  vm.newCriminal = CriminalsService.newCriminal;
+  
+  function addCriminal(){
+        CriminalsService.addCriminal().then(function(){
+            vm.newCriminal = {}
+            $state.go('list')
+        })
+    }
+  }

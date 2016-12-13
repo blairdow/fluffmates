@@ -1,0 +1,67 @@
+<ion-view view-title="Search">
+  <ion-content class="padding">
+    <h2>Find Pets Near You!</h2>
+    Select type:
+    <ul class="list">
+        <li class="item item-checkbox checkbox-assertive">
+           Cats
+           <label class="checkbox">
+           <input type="checkbox"  ng-model="search.animal.cat">
+           </label>
+        </li>
+
+        <li class="item item-checkbox checkbox-energized">
+           Dogs
+           <label class="checkbox">
+           <input type="checkbox" ng-model="search.animal.dog">
+           </label>
+        </li>
+        <li class="item item-checkbox checkbox-balanced">
+           Birds
+           <label class="checkbox">
+           <input type="checkbox" ng-model="search.animal.bird">
+           </label>
+        </li>
+
+        <li class="item item-checkbox checkbox-calm">
+           Reptiles
+           <label class="checkbox">
+           <input type="checkbox" ng-model="search.animal.reptile">
+           </label>
+        </li> 
+        <li class="item item-checkbox checkbox-positive">
+           Small Furry Critters
+           <label class="checkbox">
+           <input type="checkbox" ng-model="search.animal.smallfurry">
+           </label>
+        </li>
+        <li class="item item-checkbox checkbox-royal">
+           Barnyard Animals
+           <label class="checkbox">
+           <input type="checkbox" ng-model="search.animal.barnyard">
+           </label>
+        </li>
+        <li class="item item-checkbox checkbox-assertive">
+           Pigs
+           <label class="checkbox">
+           <input type="checkbox" ng-model="search.animal.pig">
+           </label>
+        </li>
+        <li class="item item-checkbox checkbox-energized">
+           Horses
+           <label class="checkbox">
+           <input type="checkbox" ng-model="search.animal.horse">
+           </label>
+        </li>
+    </ul>
+           {{search.animal}}
+    <div class="item item-input-inset">
+      <label class="item item-input">
+          <span class="input-label">Zip code</span>
+          <input type="tel" ng-model="search.zipCode" ng-minlength="5">
+      </label>
+      <button class="button" ng-click="search.sendSearch()">Search</button>
+      {{search}}
+   </div>
+  </ion-content>
+</ion-view>
