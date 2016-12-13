@@ -2,66 +2,22 @@
   <ion-content class="padding">
     <h2>Find Pets Near You!</h2>
     Select type:
-    <ul class="list">
-        <li class="item item-checkbox checkbox-assertive">
-           Cats
-           <label class="checkbox">
-           <input type="checkbox"  ng-model="search.animal.cat">
-           </label>
-        </li>
+    <ion-radio ng-model="search.data.animal" value='cat'>Cats</ion-radio>
+    <ion-radio ng-model="search.data.animal" value="dog">Dogs</ion-radio>
+    <ion-radio ng-model="search.data.animal" value="bird">Birds</ion-radio>
+    <ion-radio ng-model="search.data.animal" value="smallfurry">Small Furry Animals</ion-radio>
+    <ion-radio ng-model="search.data.animal" value="reptile">Reptiles</ion-radio>
+    <ion-radio ng-model="search.data.animal" value="horse">Horses</ion-radio>
+    <ion-radio ng-model="search.data.animal" value="pig">Pigs</ion-radio>
+    <ion-radio ng-model="search.data.animal" value="barnyard">Barnyard Animals</ion-radio>
 
-        <li class="item item-checkbox checkbox-energized">
-           Dogs
-           <label class="checkbox">
-           <input type="checkbox" ng-model="search.animal.dog">
-           </label>
-        </li>
-        <li class="item item-checkbox checkbox-balanced">
-           Birds
-           <label class="checkbox">
-           <input type="checkbox" ng-model="search.animal.bird">
-           </label>
-        </li>
-
-        <li class="item item-checkbox checkbox-calm">
-           Reptiles
-           <label class="checkbox">
-           <input type="checkbox" ng-model="search.animal.reptile">
-           </label>
-        </li> 
-        <li class="item item-checkbox checkbox-positive">
-           Small Furry Critters
-           <label class="checkbox">
-           <input type="checkbox" ng-model="search.animal.smallfurry">
-           </label>
-        </li>
-        <li class="item item-checkbox checkbox-royal">
-           Barnyard Animals
-           <label class="checkbox">
-           <input type="checkbox" ng-model="search.animal.barnyard">
-           </label>
-        </li>
-        <li class="item item-checkbox checkbox-assertive">
-           Pigs
-           <label class="checkbox">
-           <input type="checkbox" ng-model="search.animal.pig">
-           </label>
-        </li>
-        <li class="item item-checkbox checkbox-energized">
-           Horses
-           <label class="checkbox">
-           <input type="checkbox" ng-model="search.animal.horse">
-           </label>
-        </li>
-    </ul>
-           {{search.animal}}
     <div class="item item-input-inset">
       <label class="item item-input">
           <span class="input-label">Zip code</span>
-          <input type="tel" ng-model="search.zipCode" ng-minlength="5">
+          <input type="tel" ng-model="search.data.zipCode" ng-required="true" ng-minlength="5">
       </label>
       <button class="button" ng-click="search.sendSearch()">Search</button>
-      {{search}}
+      {{search.data}}
    </div>
   </ion-content>
 </ion-view>

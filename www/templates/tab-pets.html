@@ -1,11 +1,10 @@
 <ion-view view-title="Pets">
     <ion-content>
-        <h2 ng-click="pets.info()">Pets Page</h2>
-        <button ng-click="pets.getPets()">get pets</button>
-        <ion-list ng-show="pets.pets">
+        <h2>Pets Page</h2>
+        <ion-list>
             <ion-item ng-repeat="pet in pets.pets">
-                <img src="{{pet.media.photos.photo[0].$t}}" alt="pet image">
-                {{ pet.name.$t }}
+                <img src="{{pet.media.photos.photo[0].$t}}" alt="">
+                {{pet.name.$t}}
             </ion-item>
         </ion-list>
   </ion-content>

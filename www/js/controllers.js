@@ -1,28 +1,17 @@
 (function(){
      angular.module('fluffMates')
-        .controller('PetsCtrl', PetsCtrl) 
+        .controller('PetsCtrl', PetsCtrl)
         .controller('AccountCtrl', AccountCtrl)
         .controller('SearchCtrl', SearchCtrl)
 
 
     PetsCtrl.$inject = ['$http', 'PetsData']
     AccountCtrl.$inject = ['PetsData']
-    SearchCtrl.$inject = ['PetsData']
+    SearchCtrl.$inject = ['PetsData', '$state']
 
     function PetsCtrl($http, PetsData) {
         var vm = this
-        
-        vm.data = PetsData
-            
-        vm.getPets = function(){
-            console.log('clicked')
-            $http.get('http://localhost:3000/pets?' + $.param(vm.data)).then(function(response){
-                vm.pets = response.data;
-                console.log(vm.pets)
-            }, function(err){
-                console.log(err)
-            })
-        }
+        vm.pets = PetsData.pets
     }
 
     function AccountCtrl () {
@@ -32,17 +21,19 @@
             enableFriends: true
         }
     }
-    
-    function SearchCtrl (PetsData) {
+
+    function SearchCtrl (PetsData, $state) {
         var vm = this
-        
-        vm.searchInput = {}
-        
+        vm.data = {}
+
         vm.sendSearch = function(){
-            
+            PetsData.pets.length = 0
+            PetsData.getPets(vm.data)
+            vm.data = {}
+            $state.go('tab.pets')
         }
     }
 
 
-    
+
 })()
