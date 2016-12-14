@@ -1,6 +1,6 @@
 /* Empty. Add your own CSS if you like */
 .chosen-pet {
-  border: red solid 3px;
+  border: #ff00f5 solid 3px;
 }
 
 .close-modal {
@@ -15,4 +15,13 @@
     float: right;
     font-size: 2em;
     margin-top: 4%;
+}
+
+.login, .register, .center {
+    text-align: center;
+}
+
+.padding: {
+    padding-top: 5px;
+    padding-bottom: -5px;
 }

@@ -68,9 +68,19 @@ angular.module('fluffMates', ['ionic'])
         controller: 'AccountCtrl as account'
       }
     }
-  });
+  })
+    .state('register', {
+        url: '/register',
+        templateUrl: 'templates/register.html',
+        controller: 'RegisterCtrl as register'
+    })
 
+    .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'LoginCtrl as login'
+    })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/search');
+  $urlRouterProvider.otherwise('tab/search');
 
 });

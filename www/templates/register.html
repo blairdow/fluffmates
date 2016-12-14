@@ -1,0 +1,45 @@
+<ion-view view-title="Register">
+    <ion-content>
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input type="text" ng-model="register.newUser.name">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="register.newUser.email">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Address</span>
+          <input type="text" ng-model="register.newUser.address">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">City</span>
+          <input type="text" ng-model="register.newUser.city">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">State</span>
+          <input type="text" ng-model="register.newUser.state">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Zip Code</span>
+          <input type="tel" ng-model="register.newUser.zip_code">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="register.newUser.password">
+        </label>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="register.createUser()">
+          Register
+        </button>
+      </div>
+      <ion-list>
+           <div class="login">Already registered?</div>
+          <ion-item class="login" href="#/login">
+            Log in here
+          </ion-item>
+      </ion-list>
+    </ion-content>
+</ion-view>

@@ -1,65 +1,31 @@
-(function(){
-  'use strict';
+(function() {
+  "use strict";
 
   angular
-    .module('jamnApp')
-    .controller('LoginController', LoginController)
+    .module("fishinApp")
+    .controller("LoginController", LoginController);
 
-    LoginController.$inject = ['authService', 'userService', '$ionicModal', '$timeout', '$scope', '$state', '$ionicPopup', '$log'];
+  LoginController.$inject = ["$state", "userDataService", "$log", "authService"];
 
-    function LoginController(authService, userService, $ionicModal, $timeout, $scope, $state, $ionicPopup, $log) {
-        var vm = this;
+  function LoginController($state, userDataService, $log, authService) {
+    var vm = this;
 
-        // Create the login modal that we will use later
+    vm.login      = login;
+    vm.isLoggedIn = authService.isLoggedIn;
+    vm.currentUser = userDataService.user;
 
-        vm.closeLogin = closeLogin;
-        vm.login = login;
-        vm.doLogin = doLogin;
+    // Form data for login
+    vm.loginData;
 
-        // Triggered in the login modal to close it
-        function closeLogin() {
-          vm.passwordVerify = "";
-          vm.loginData      = {};
-          $state.go('welcome');
-          vm.modal.remove();
-        };
+    function login() {
+      authService.login(vm.loginData.phoneNumber, vm.loginData.password)
+        .then(function(res) {
+          $log.log(res.data);
+          $state.go('triumphs');
+        });
+    };
 
-        // Open the login modal
-        function login() {
-          if (vm.modal) vm.modal.remove();
-          $ionicModal.fromTemplateUrl('templates/login.html', {
-            scope: $scope,
-            animation: 'slide-in-right'
-          })
-          .then(function(modal) {
-            vm.modal = modal;
-            vm.modal.show();
-          });
-        };
+  }
 
-        // Perform the login action when the user submits the login form
-        function doLogin() {
-          let { userName, password } = vm.loginData;
-
-          authService.login(userName,password)
-            .success(function(data) {
-              userService.user = data.user;
-              if (data.success) {
-                vm.closeLogin();
-                $state.go('app.my_profile');
-              } else {
-                var alertPopup = $ionicPopup.alert({
-                  title: 'Login failed!',
-                  template: 'Please check your credentials!'
-                });
-              }
-            })
-            .error(function(data) {
-              var alertPopup = $ionicPopup.alert({
-                title: 'Whoa!',
-                template: 'I\'m... terribly sorry, but something went awfully wrong.'
-              });
-            });
-        }
-    }
 })();
+

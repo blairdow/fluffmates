@@ -41,7 +41,9 @@
                 pet.chosen = false
                 vm.chosenPets.splice(vm.chosenPets.indexOf(pet), 1)
             }
-            console.log('chosen pets', vm.chosenPets)  
+            console.log('chosen pets', vm.chosenPets)
+            
+            
       }
 
       var service = {

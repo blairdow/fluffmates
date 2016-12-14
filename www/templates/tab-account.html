@@ -1,10 +1,9 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list ng-if="account.chosenPets">
+    <ion-list>
         <ion-item ng-repeat="pet in account.chosenPets">
-            <img class="pet-main-image" src="{{pet.media.photos.photo[0].$t}}" alt="">
-            {{pet.name.$t}}
-            <span on-touch="account.choosePet(pet)"><i class="ion-close-circled"></i></span>
+           {{ pet.name.$t }}
+           <i class="ion-close-circled" on-touch="account.choosePet(pet)"></i> 
         </ion-item>
     </ion-list>
   </ion-content>
