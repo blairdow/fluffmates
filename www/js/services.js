@@ -9,7 +9,8 @@
   function PetsData($http) {
       var vm = this
       vm.pets = []
-
+      vm.chosenPets = []
+      
       vm.getPets = function(data){
         console.log('clicked')
 
@@ -20,12 +21,33 @@
             console.log(err)
         })
       }
+      
+      vm.choosePet = function(pet) {
+        if(vm.chosenPets.indexOf(pet) < 0){
+              pet.chosen = true
+              vm.chosenPets.push(pet)
 
-      vm.chosenPets = []
+              //bump first selected pet from list if full (over three)
+              if(vm.chosenPets.length > 3){
+                var removed = vm.chosenPets.shift()
+                removed.chosen = false
+                pet.chosen = true
+                console.log('removed', removed)
+              }
+            }
+            
+            // remove pet from list if already selected
+            else if(vm.chosenPets.indexOf(pet) > -1){ 
+                pet.chosen = false
+                vm.chosenPets.splice(vm.chosenPets.indexOf(pet), 1)
+            }
+            console.log('chosen pets', vm.chosenPets)  
+      }
 
       var service = {
         pets: vm.pets,
         getPets: vm.getPets,
+        choosePet: vm.choosePet,
         chosenPets: vm.chosenPets
       }
 

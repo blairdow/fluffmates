@@ -1,9 +1,11 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+    <ion-list ng-if="account.chosenPets">
+        <ion-item ng-repeat="pet in account.chosenPets">
+            <img class="pet-main-image" src="{{pet.media.photos.photo[0].$t}}" alt="">
+            {{pet.name.$t}}
+            <span on-touch="account.choosePet(pet)"><i class="ion-close-circled"></i></span>
+        </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

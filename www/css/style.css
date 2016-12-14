@@ -9,3 +9,10 @@
     padding-top: 10px;
     font-size: 1.5em;
 }
+
+.ion-close-circled {
+    color: red;
+    float: right;
+    font-size: 2em;
+    margin-top: 4%;
+}

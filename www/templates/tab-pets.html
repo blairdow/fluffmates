@@ -1,6 +1,8 @@
 <ion-view view-title="Pets">
-    <ion-content>
-        <h2>Pets Page</h2>
+    <ion-content class="has-footer">
+        <h2>Adopt us!</h2>
+        <p>Double click pet to add to your list. Click pet's name to see more info</p>
+        
         <ion-list>
             <ion-item class="pet-main" ng-repeat="pet in pets.pets" ng-class="{ 'chosen-pet': pet.chosen }" on-double-tap="pets.choosePet(pet)">
                
@@ -10,7 +12,11 @@
 
             </ion-item>
         </ion-list>
-  </ion-content>
+    </ion-content>
+<!--    footer hidden when no pets are chosen-->
+    <ion-footer-bar ng-if="pets.chosenPets[0]" align-title="left" class="bar-royal">
+      <a on-touch="pets.showChosenPets()">
+          <h1 class="title">My Pets</h1>
+      </a>
+    </ion-footer-bar>
 </ion-view>
-
-<!-- <button on-double-tap="onDoubleTap()" class="button">Test</button> -->

@@ -13,28 +13,11 @@
         var vm = this
         vm.pets = PetsData.pets
         vm.showPet = {}
-
+        vm.chosenPets = []
+        
         vm.choosePet = function(pet){
-            //add pet to list if not already on it
-            if(PetsData.chosenPets.indexOf(pet) < 0){
-              pet.chosen = true
-              PetsData.chosenPets.push(pet)
-
-              //bump first selected pet from list if full (over three)
-              if(PetsData.chosenPets.length > 3){
-                var removed = PetsData.chosenPets.shift()
-                removed.chosen = false
-                pet.chosen = true
-                console.log('removed', removed)
-              }
-            }
-            
-            // remove pet from list if already selected
-            else if(PetsData.chosenPets.indexOf(pet) > -1){ 
-                pet.chosen = false
-                PetsData.chosenPets.splice(PetsData.chosenPets.indexOf(pet), 1)
-            }
-            console.log('chosen pets', PetsData.chosenPets)
+            PetsData.choosePet(pet)
+            vm.chosenPets = PetsData.chosenPets
         }
 
         vm.showPetInfo = function(pet){
@@ -58,12 +41,15 @@
         }
     }
 
-    function AccountCtrl () {
+    function AccountCtrl (PetsData) {
         var vm = this
-
-        vm.settings = {
-            enableFriends: true
+        
+        vm.chosenPets = PetsData.chosenPets
+        
+        vm.choosePet = function(pet){
+            PetsData.choosePet(pet)
         }
+        
     }
 
     function SearchCtrl (PetsData, $state) {
