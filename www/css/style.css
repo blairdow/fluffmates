@@ -2,3 +2,10 @@
 .chosen-pet {
   border: red solid 3px;
 }
+
+.close-modal {
+    float: right;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-size: 1.5em;
+}

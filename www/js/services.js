@@ -14,7 +14,6 @@
         console.log('clicked')
 
         $http.get('http://localhost:3000/pets?' + $.param(data)).then(function(response){
-            // vm.pets.length = 0
             vm.pets.push(...response.data)
             console.log('service vm.pets', vm.pets)
         }, function(err){

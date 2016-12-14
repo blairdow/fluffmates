@@ -1,55 +1,65 @@
-angular.module('InfamousCriminals')
-.controller('CriminalsController', CriminalsController)
-.controller('CriminalsListController', CriminalsListController)
-.controller('CriminalsAddController', CriminalsAddController)
+(function(){
+  'use strict';
 
-CriminalsController.$inject = ['$http', 'CriminalsService'];
-CriminalsListController.$inject = ['$http', 'CriminalsService'];
-CriminalsAddController.$inject = ['CriminalsService', '$state'];
+  angular
+    .module('jamnApp')
+    .controller('LoginController', LoginController)
 
-function CriminalsController($http, CriminalsService){
-  var self = this;
-  self.addCriminal = addCriminal;
-    
-  self.newCriminal = CriminalsService.newCriminal;
-  
-  function addCriminal(){
-    CriminalsService.addCriminal().then(function(){
-        CriminalsService.getCriminals().then(function(){
-            self.all = CriminalsService.criminals
-        })
-        self.newCriminal = {}
-    })
-  }
+    LoginController.$inject = ['authService', 'userService', '$ionicModal', '$timeout', '$scope', '$state', '$ionicPopup', '$log'];
 
-}
+    function LoginController(authService, userService, $ionicModal, $timeout, $scope, $state, $ionicPopup, $log) {
+        var vm = this;
 
-function CriminalsListController($http, CriminalsService){
-    var vm = this
-    vm.criminals = []
-    vm.deleteCriminal = deleteCriminal
-    
-    CriminalsService.getCriminals().then(function (){
-        vm.criminals = CriminalsService.criminals
-    })
-    
-    function deleteCriminal(criminal){
-        CriminalsService.deleteCriminal(criminal).then( function(){
-            vm.criminals = CriminalsService.criminals
-        })
+        // Create the login modal that we will use later
+
+        vm.closeLogin = closeLogin;
+        vm.login = login;
+        vm.doLogin = doLogin;
+
+        // Triggered in the login modal to close it
+        function closeLogin() {
+          vm.passwordVerify = "";
+          vm.loginData      = {};
+          $state.go('welcome');
+          vm.modal.remove();
+        };
+
+        // Open the login modal
+        function login() {
+          if (vm.modal) vm.modal.remove();
+          $ionicModal.fromTemplateUrl('templates/login.html', {
+            scope: $scope,
+            animation: 'slide-in-right'
+          })
+          .then(function(modal) {
+            vm.modal = modal;
+            vm.modal.show();
+          });
+        };
+
+        // Perform the login action when the user submits the login form
+        function doLogin() {
+          let { userName, password } = vm.loginData;
+
+          authService.login(userName,password)
+            .success(function(data) {
+              userService.user = data.user;
+              if (data.success) {
+                vm.closeLogin();
+                $state.go('app.my_profile');
+              } else {
+                var alertPopup = $ionicPopup.alert({
+                  title: 'Login failed!',
+                  template: 'Please check your credentials!'
+                });
+              }
+            })
+            .error(function(data) {
+              var alertPopup = $ionicPopup.alert({
+                title: 'Whoa!',
+                template: 'I\'m... terribly sorry, but something went awfully wrong.'
+              });
+            });
+        }
     }
-    
-}
-
-function CriminalsAddController(CriminalsService, $state){
-  var vm = this
-  vm.addCriminal = addCriminal;  
-  vm.newCriminal = CriminalsService.newCriminal;
-  
-  function addCriminal(){
-        CriminalsService.addCriminal().then(function(){
-            vm.newCriminal = {}
-            $state.go('list')
-        })
-    }
-  }
+})();
