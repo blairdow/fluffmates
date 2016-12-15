@@ -21,9 +21,17 @@
     </ion-content>
 
 <!--    footer hidden when no pets are chosen-->
-    <ion-footer-bar ng-if="pets.chosenPets[0]" align-title="left" class="bar-royal">
-      <a class='center' on-touch="pets.showChosenPets()">
-          <h1 class="title">My Pets</h1>
-      </a>
+    <ion-footer-bar ng-if="pets.chosenPets[0]" align-title="center" class="bar-royal" on-touch="pets.showChosenPets()">
+       <div>
+         <h1 class="title">My Pets</h1>
+         <button class="button button-clear pull-right">
+           <i class="ion-chevron-up pull-right"></i>
+         </button>
+       </div>
     </ion-footer-bar>
+<!--
+<div class="bar bar-footer" ng-show="pets.chosenPets[0]" on-touch="pets.showChosenPets()">
+  <div class="title">My Pets</div>
+  <button class="button button-clear"><i class="ion-chevron-up pull-right"></i></button>
+</div> -->
 </ion-view>

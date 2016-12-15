@@ -17,10 +17,10 @@
 //      return $http.post('/api/users/', userData);
 //    };
 //
-//    // update a user
-//    userFactory.update = function(id, userData) {
-//      return $http.put('/api/users/' + id, userData);
-//    };
+    // update a user
+    userFactory.update = function(id, userData) {
+      return $http.put('http://localhost:3000/users/' + id, userData);
+    };
 //
 //    // delete a user
 //    userFactory.delete = function(id) {

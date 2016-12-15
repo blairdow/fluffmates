@@ -4,12 +4,11 @@
         <i class="ion-chevron-down close-modal" on-touch="pets.closeModal()"></i>
         <h1>{{pets.showPet.name.$t}}</h1>
         <img ng-repeat="photo in pets.showPet.media.photos.photo | filter: { '@size': 'pn' } : true" class="pet-main-image" src="{{photo.$t}}" alt="">
-<!--        <div ng-repeat="product in products | filter: { color: 'red' }"> -->
 
         <p>{{ pets.showPet.description.$t }}</p>
-        
+
         <button ng-show="!pets.showPet.chosen" class="button button-block button-royal" on-tap="pets.choosePet(pets.showPet)">Add to List</button>
-        
+
         <button ng-show="pets.showPet.chosen" class="button button-block button-assertive" on-touch="pets.choosePet(pets.showPet)">Remove from List</button>
        </div>
     </ion-content>

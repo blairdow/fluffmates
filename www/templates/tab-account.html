@@ -1,6 +1,6 @@
 <ion-view view-title="Account">
   <ion-content>
-  <div class="list card">
+  <div class="list card padding">
     <h3 class="center">Account Info</h3>
     <div class="item item-text-wrap">
       Name: {{ account.user.name }}
@@ -11,20 +11,22 @@
     <div class="item item-text-wrap">
       Address: {{ account.user.address }} <br> {{ account.user.city }}, {{ account.user.state }} {{ account.user.zip_code }}
     </div>
+  <button class="button button-block button-stable" on-touch="account.editModal(account.user)">Edit Info</button>
   </div>
 
-  <div ng-if="account.chosenPets[0]" class="list card">
+  <div ng-if="account.chosenPets[0]" class="list card padding">
     <h3 class="center">Potential Future Fur Babies</h3>
-    <ion-list>
+    <div class="item item-text-wrap">
         <ion-item ng-repeat="pet in account.chosenPets">
            <img src="{{pet.media.photos.photo[1].$t}}" alt="">
            {{ pet.name.$t }}
            <i class="ion-close-circled" on-touch="account.choosePet(pet)"></i>
         </ion-item>
-    </ion-list>
+    </div>
   </div>
+
     <div class="padding">
-        <button class="button button-block button-positive" ng-click="account.logout()">
+        <button class="button button-block button-calm" ng-click="account.logout()">
           Log Out
         </button>
     </div>

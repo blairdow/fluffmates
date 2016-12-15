@@ -4,15 +4,15 @@
     angular.module('fluffMates')
     .factory('PetsData', PetsData)
 
-    PetsData.$inject = ['$http']
+    PetsData.$inject = ['$http', '$ionicModal', 'userDataService']
 
-  function PetsData($http) {
+  function PetsData($http, $ionicModal, userDataService) {
       var vm = this
       vm.pets = []
       vm.chosenPets = []
-      
+      vm.showPet = {}
+
       vm.getPets = function(data){
-        console.log('clicked')
 
         $http.get('http://localhost:3000/pets?' + $.param(data)).then(function(response){
             vm.pets.push(...response.data)
@@ -21,8 +21,9 @@
             console.log(err)
         })
       }
-      
-      vm.choosePet = function(pet) {
+
+      vm.choosePet = function(pet, user) {
+        console.log('pet data user', user)
         if(vm.chosenPets.indexOf(pet) < 0){
               pet.chosen = true
               vm.chosenPets.push(pet)
@@ -35,22 +36,25 @@
                 console.log('removed', removed)
               }
             }
-            
+
             // remove pet from list if already selected
-            else if(vm.chosenPets.indexOf(pet) > -1){ 
+            else if(vm.chosenPets.indexOf(pet) > -1){
                 pet.chosen = false
                 vm.chosenPets.splice(vm.chosenPets.indexOf(pet), 1)
             }
-            console.log('chosen pets', vm.chosenPets)
-            
-            
+
+            userDataService.update(user._id, user)
+            .then(function(res){
+              console.log(res)
+            })
+
       }
 
       var service = {
         pets: vm.pets,
         getPets: vm.getPets,
         choosePet: vm.choosePet,
-        chosenPets: vm.chosenPets
+        chosenPets: vm.chosenPets,
       }
 
       return service

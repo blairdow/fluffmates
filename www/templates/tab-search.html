@@ -1,23 +1,25 @@
 <ion-view view-title="Search">
   <ion-content class="padding">
-    <h2 class='center'>Find Pets Near You!</h2>
-    <h4 class='center'>Select type:</h4>
-    <ion-radio ng-model="search.data.animal" value='cat'>Cats</ion-radio>
-    <ion-radio ng-model="search.data.animal" value="dog">Dogs</ion-radio>
-    <ion-radio ng-model="search.data.animal" value="bird">Birds</ion-radio>
-    <ion-radio ng-model="search.data.animal" value="smallfurry">Small Furry Animals</ion-radio>
-    <ion-radio ng-model="search.data.animal" value="reptile">Reptiles</ion-radio>
-    <ion-radio ng-model="search.data.animal" value="horse">Horses</ion-radio>
-    <ion-radio ng-model="search.data.animal" value="pig">Pigs</ion-radio>
-    <ion-radio ng-model="search.data.animal" value="barnyard">Barnyard Animals</ion-radio>
-     
-    <div class="list list-inset">
-      <label class="item item-input">
-        <span class="input-label">Zip code</span>
-        <input ng-model='search.data.zipCode' type="text" placeholder="{{ search.user.zip_code }}">
-      </label>
-    </div>
-    
-    <button class="button button-block button-positive" ng-click="search.sendSearch()">Search</button>
+    <form name="searchForm" novalidate>
+      <h2 class='center'>Find Pets Near You!</h2>
+      <h4 class='center'>Select type:</h4>
+      <ion-radio ng-model="search.data.animal" value='cat'>Cats</ion-radio>
+      <ion-radio ng-model="search.data.animal" value="dog">Dogs</ion-radio>
+      <ion-radio ng-model="search.data.animal" value="bird">Birds</ion-radio>
+      <ion-radio ng-model="search.data.animal" value="smallfurry">Small Furry Animals</ion-radio>
+      <ion-radio ng-model="search.data.animal" value="reptile">Reptiles</ion-radio>
+      <ion-radio ng-model="search.data.animal" value="horse">Horses</ion-radio>
+      <ion-radio ng-model="search.data.animal" value="pig">Pigs</ion-radio>
+      <ion-radio ng-model="search.data.animal" value="barnyard">Barnyard Animals</ion-radio>
+
+      <div class="list list-inset">
+        <label class="item item-input">
+          <span class="input-label">Zip code</span>
+          <input ng-minlength="5" ng-maxlength='5' ng-model='search.data.zipCode' type="text" placeholder="{{ search.user.zip_code }}" required>
+        </label>
+      </div>
+
+      <button class="button button-block button-positive" ng-disabled="searchForm.$invalid" on-touch="search.sendSearch()">Search</button>
+    </form>
   </ion-content>
 </ion-view>

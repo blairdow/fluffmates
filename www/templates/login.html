@@ -1,24 +1,26 @@
 <ion-view view-title="Login">
     <ion-content>
+     <form name='loginForm' novalidate>
       <div class="list list-inset">
         <label class="item item-input">
           <span class="input-label">Email</span>
-          <input type="text" ng-model="login.loginData.email">
+          <input type="email" ng-model="login.loginData.email" required>
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="password" ng-model="login.loginData.password">
+          <input type="password" ng-model="login.loginData.password" ng-minlength="6" required>
         </label>
       </div>
       <div class="padding">
-        <button class="button button-block button-positive" ng-click="login.login()">
+        <button class="button button-block button-positive" ng-disabled="loginForm.$invalid"  on-touch="login.login()">
           Log In
         </button>
       </div>
-      <div class="list list-inset">
-          <ion-item class="register" href="#/register">
-            Register
-          </ion-item>
+     </form>
+      <div class="padding">
+        <button class="button button-block button-stable" ng-click="login.go('register')">
+          Register
+        </button>
       </div>
     </ion-content>
 </ion-view>

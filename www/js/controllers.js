@@ -7,7 +7,7 @@
         .controller('RegisterCtrl', RegisterCtrl)
 
     PetsCtrl.$inject = ['$http', 'PetsData', '$ionicModal', '$scope', 'userDataService', 'authService']
-    AccountCtrl.$inject = ['PetsData', 'userDataService', '$state', 'authService']
+    AccountCtrl.$inject = ['PetsData', 'userDataService', '$state', 'authService', '$ionicModal', '$scope', '$timeout']
     SearchCtrl.$inject = ['PetsData', '$state', 'userDataService', 'authService']
     LoginCtrl.$inject = ['authService', '$state']
     RegisterCtrl.$inject = ['$http', 'authService', 'authToken', '$state']
@@ -15,21 +15,20 @@
     function PetsCtrl($http, PetsData, $ionicModal, $scope, userDataService, authService) {
         var vm = this
         vm.pets = PetsData.pets
-        // authService.setUser()
+        authService.setUser()
         vm.user = userDataService.user
 
-        console.log('pets ctrl', vm.user)
         vm.showPet = {}
         vm.chosenPets = []
 
         vm.choosePet = function(pet){
-            PetsData.choosePet(pet)
+            PetsData.choosePet(pet, vm.user)
             vm.chosenPets = PetsData.chosenPets
+            vm.user.chosenPets = vm.chosenPets            
         }
 
         vm.showPetInfo = function(pet){
           vm.showPet = pet
-          console.log(vm.showPet)
 
           if(vm.modal) {vm.modal.remove()}
 
@@ -66,20 +65,54 @@
         }
     }
 
-    function AccountCtrl (PetsData, userDataService, $state, authService) {
+    function AccountCtrl (PetsData, userDataService, $state, authService, $ionicModal, $scope, $timeout) {
         var vm = this
         authService.setUser()
         vm.user = userDataService.user
         vm.isLoggedIn = authService.isLoggedIn;
+        vm.updateUser = {}
 
         vm.chosenPets = PetsData.chosenPets
+
+        vm.editModal = function(user){
+            vm.updateUser = user
+
+            if(vm.modal) {vm.modal.remove()}
+
+            $ionicModal.fromTemplateUrl('./templates/edit-user-modal.html', {
+              scope: $scope,
+              animation: 'slide-in-up'
+            })
+            .then(function(modal){
+              vm.modal = modal
+              vm.modal.show()
+            })
+        }
+
+        vm.closeEditModal = function(){
+            vm.modal.hide()
+            vm.updateUser = {}
+            $timeout(function(){
+                vm.modal.remove()
+            }, 4000)
+        }
+
+        vm.editUser = function(){
+            userDataService.update(vm.updateUser._id, vm.updateUser)
+            .then(function(res){
+              console.log(res)
+              vm.closeEditModal()
+              authService.setUser()
+              vm.user = userDataService.user
+            })
+        }
 
         vm.logout = function(){
             authService.logout()
         }
 
         vm.choosePet = function(pet){
-            PetsData.choosePet(pet)
+            PetsData.choosePet(pet, vm.user)
         }
     }
 
@@ -96,6 +129,10 @@
             $state.go('tab.search')
           })
         }
+
+      vm.go = function(state){
+          $state.go(state)
+      }
 
     }
 
@@ -115,6 +152,10 @@
               $state.go('tab.search');
             });
         }
+
+      vm.go = function(state){
+          $state.go(state)
+      }
     }
 
     function SearchCtrl (PetsData, $state, userDataService, authService) {
