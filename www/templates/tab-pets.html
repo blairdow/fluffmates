@@ -1,19 +1,25 @@
 <ion-view view-title="Pets">
     <ion-content class="has-footer center">
-        <h3 class="padding">Adopt us!</h3>
-        <p>Double click pet to add to your list. <br> Click pet's name to see more info.</p>
-        <div class="list card" ng-repeat="pet in pets.pets" ng-class="{ 'chosen-pet': pet.chosen }" on-double-tap="pets.choosePet(pet)">
-          <div class="item item-image">
-            <img src="{{pet.media.photos.photo[2].$t}}">
-          </div>
-          <div class="item">
-           <h2 class='center'>
-            <a on-touch="pets.showPetInfo(pet)">{{pet.name.$t}}</a>
-           </h2>
+        <div ng-hide="pets.pets[0]" class="no-search-results">
+          <h3>Click the search tab to search for your new furry friends!</h3>
+        </div>
+
+        <div ng-show="pets.pets[0]" class="search-results">
+          <h3 class="padding">Adopt us!</h3>
+          <p>Double click pet to add to your list. <br> Click pet's name to see more info.</p>
+          <div class="list card" ng-repeat="pet in pets.pets" ng-class="{ 'chosen-pet': pet.chosen }" on-double-tap="pets.choosePet(pet)">
+            <div class="item item-image">
+              <img src="{{pet.media.photos.photo[2].$t}}">
+            </div>
+            <div class="item">
+             <h2 class='center'>
+              <a on-touch="pets.showPetInfo(pet)">{{pet.name.$t}}</a>
+             </h2>
+            </div>
           </div>
         </div>
     </ion-content>
-    
+
 <!--    footer hidden when no pets are chosen-->
     <ion-footer-bar ng-if="pets.chosenPets[0]" align-title="left" class="bar-royal">
       <a class='center' on-touch="pets.showChosenPets()">

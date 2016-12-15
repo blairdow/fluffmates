@@ -36,15 +36,16 @@
       // clear the token
       authToken.setToken();
 
-      // return to homepage
-      $state.go('tab.account');
+      // return to login
+      $state.go('login');
     };
 
     // check if a user is logged in
     // checks if there is a local token
     authFactory.isLoggedIn = function() {
       if (authToken.getToken())
-        return true;
+{        console.log(authToken.getToken())
+        return true;}
       else
         return false;
     };

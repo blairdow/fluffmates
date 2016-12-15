@@ -1,10 +1,32 @@
 <ion-view view-title="Account">
   <ion-content>
+  <div class="list card">
+    <h3 class="center">Account Info</h3>
+    <div class="item item-text-wrap">
+      Name: {{ account.user.name }}
+    </div>
+    <div class="item item-text-wrap">
+      Email: {{ account.user.email }}
+    </div>
+    <div class="item item-text-wrap">
+      Address: {{ account.user.address }} <br> {{ account.user.city }}, {{ account.user.state }} {{ account.user.zip_code }}
+    </div>
+  </div>
+
+  <div ng-if="account.chosenPets[0]" class="list card">
+    <h3 class="center">Potential Future Fur Babies</h3>
     <ion-list>
         <ion-item ng-repeat="pet in account.chosenPets">
+           <img src="{{pet.media.photos.photo[1].$t}}" alt="">
            {{ pet.name.$t }}
-           <i class="ion-close-circled" on-touch="account.choosePet(pet)"></i> 
+           <i class="ion-close-circled" on-touch="account.choosePet(pet)"></i>
         </ion-item>
     </ion-list>
+  </div>
+    <div class="padding">
+        <button class="button button-block button-positive" ng-click="account.logout()">
+          Log Out
+        </button>
+    </div>
   </ion-content>
 </ion-view>

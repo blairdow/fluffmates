@@ -15,10 +15,10 @@
     function PetsCtrl($http, PetsData, $ionicModal, $scope, userDataService, authService) {
         var vm = this
         vm.pets = PetsData.pets
-        authService.setUser()
+        // authService.setUser()
         vm.user = userDataService.user
 
-        console.log(vm.user)
+        console.log('pets ctrl', vm.user)
         vm.showPet = {}
         vm.chosenPets = []
 
@@ -42,14 +42,14 @@
               vm.modal.show()
           })
         }
-        
+
         vm.closeModal = function(){
             vm.modal.hide()
         }
-        
+
         vm.showChosenPets = function(){
             if(vm.chosenPetsModal) {vm.chosenPetsModal.remove()}
-            
+
             $ionicModal.fromTemplateUrl('./templates/chosen-pets-modal.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -59,7 +59,7 @@
                 vm.chosenPetsModal.show()
             })
         }
-        
+
         vm.closeChosenModal = function(){
             console.log('closed')
             vm.chosenPetsModal.hide()
@@ -72,8 +72,11 @@
         vm.user = userDataService.user
         vm.isLoggedIn = authService.isLoggedIn;
 
-        console.log('accounts page user', vm.user)
         vm.chosenPets = PetsData.chosenPets
+
+        vm.logout = function(){
+            authService.logout()
+        }
 
         vm.choosePet = function(pet){
             PetsData.choosePet(pet)
@@ -85,12 +88,11 @@
       vm.newUser = {}
 
       vm.createUser = function() {
-          console.log('clicked create', vm.newUser)
           $http.post('http://localhost:3000/users', vm.newUser)
           .then(function(res){
-            console.log(res.data.token)
             authToken.setToken(res.data.token)
             authService.setUser()
+            vm.newUser = {}
             $state.go('tab.search')
           })
         }
@@ -102,14 +104,17 @@
       vm.isLoggedIn = authService.isLoggedIn;
       vm.loginData = {}
 
+      if(vm.isLoggedIn == true){
+        $state.go('tab.search')
+      }
+
       vm.login = function(){
           authService.login(vm.loginData.email, vm.loginData.password)
             .then(function(res) {
-              console.log(res);
-              $state.go('tab.account');
+              vm.loginData = {}
+              $state.go('tab.search');
             });
         }
-
     }
 
     function SearchCtrl (PetsData, $state, userDataService, authService) {

@@ -81,6 +81,6 @@ angular.module('fluffMates', ['ionic'])
         controller: 'LoginCtrl as login'
     })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('tab/search');
+  $urlRouterProvider.otherwise('/login');
 
 });

@@ -2,12 +2,14 @@
 <ion-modal-view>
     <ion-content>
         <i class="ion-chevron-down close-chosen-modal" on-touch="pets.closeChosenModal()"></i>
-        <h3>Potential Future Fur Babies</h3>
+        <h3 class='center'>Potential Future Fur Babies</h3>
         <ion-list>
           <ion-item ng-repeat="pet in pets.chosenPets">
             {{pet.name.$t}}
             <img class="pet-main-image" src="{{pet.media.photos.photo[1].$t}}" alt="">
+            <i class="ion-close-circled" on-touch="pets.choosePet(pet)"></i>
           </ion-item>
         </ion-list>
     </ion-content>
 </ion-modal-view>
+
