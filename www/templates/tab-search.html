@@ -1,8 +1,7 @@
 <ion-view view-title="Search">
   <ion-content class="padding">
-    <h2>Find Pets Near You!</h2>
-    <h3>user: {{ search.user.email }} </h3>
-    Select type:
+    <h2 class='center'>Find Pets Near You!</h2>
+    <h4 class='center'>Select type:</h4>
     <ion-radio ng-model="search.data.animal" value='cat'>Cats</ion-radio>
     <ion-radio ng-model="search.data.animal" value="dog">Dogs</ion-radio>
     <ion-radio ng-model="search.data.animal" value="bird">Birds</ion-radio>
@@ -11,13 +10,14 @@
     <ion-radio ng-model="search.data.animal" value="horse">Horses</ion-radio>
     <ion-radio ng-model="search.data.animal" value="pig">Pigs</ion-radio>
     <ion-radio ng-model="search.data.animal" value="barnyard">Barnyard Animals</ion-radio>
-
-    <div class="item item-input-inset">
+     
+    <div class="list list-inset">
       <label class="item item-input">
-          <span class="input-label">Zip code</span>
-          <input type="tel" placeholder="{{ search.user.zip_code }}" ng-model="search.data.zipCode" ng-required="true" ng-minlength="5">
+        <span class="input-label">Zip code</span>
+        <input ng-model='search.data.zipCode' type="text" placeholder="{{ search.user.zip_code }}">
       </label>
-      <button class="button" ng-click="search.sendSearch()">Search</button>
-   </div>
+    </div>
+    
+    <button class="button button-block button-positive" ng-click="search.sendSearch()">Search</button>
   </ion-content>
 </ion-view>

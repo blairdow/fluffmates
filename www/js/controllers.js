@@ -42,9 +42,27 @@
               vm.modal.show()
           })
         }
-
+        
         vm.closeModal = function(){
             vm.modal.hide()
+        }
+        
+        vm.showChosenPets = function(){
+            if(vm.chosenPetsModal) {vm.chosenPetsModal.remove()}
+            
+            $ionicModal.fromTemplateUrl('./templates/chosen-pets-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            })
+            .then(function(modal){
+                vm.chosenPetsModal = modal
+                vm.chosenPetsModal.show()
+            })
+        }
+        
+        vm.closeChosenModal = function(){
+            console.log('closed')
+            vm.chosenPetsModal.hide()
         }
     }
 
@@ -109,7 +127,5 @@
             $state.go('tab.pets')
         }
     }
-
-
 
 })()

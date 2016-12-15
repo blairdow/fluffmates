@@ -10,6 +10,12 @@
     font-size: 1.5em;
 }
 
+.close-chosen-modal {
+    float: right;
+    padding-right: 10px;
+    font-size: 1.5em;
+}
+
 .ion-close-circled {
     color: red;
     float: right;

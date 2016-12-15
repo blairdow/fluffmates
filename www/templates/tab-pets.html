@@ -12,22 +12,11 @@
            </h2>
           </div>
         </div>
-           
-<!--
-        <ion-list>
-            <ion-item class="pet-main" ng-repeat="pet in pets.pets" ng-class="{ 'chosen-pet': pet.chosen }" on-double-tap="pets.choosePet(pet)">
-
-                <img class="pet-main-image" src="{{pet.media.photos.photo[0].$t}}" alt="">
-
-                <a on-touch="pets.showPetInfo(pet)">{{pet.name.$t}}</a>
-
-            </ion-item>
-        </ion-list>
--->
     </ion-content>
+    
 <!--    footer hidden when no pets are chosen-->
     <ion-footer-bar ng-if="pets.chosenPets[0]" align-title="left" class="bar-royal">
-      <a on-touch="pets.showChosenPets()">
+      <a class='center' on-touch="pets.showChosenPets()">
           <h1 class="title">My Pets</h1>
       </a>
     </ion-footer-bar>
