@@ -21,6 +21,9 @@
             <i class="ion-ios-paw-outline main-paw"></i>
         </div>
     </div>
+
+  <h4 class='pets-search-error text-center'>{{ login.message.error }}</h4>
+
      <form name='loginForm' novalidate>
       <div class="list list-inset">
         <label class="item item-input">
@@ -33,16 +36,15 @@
         </label>
       </div>
       <div class="padding">
-        <button class="button button-block button-royal" ng-disabled="loginForm.$invalid"  on-touch="login.login()">
+        <button class="button button-block button-royal" ng-disabled="loginForm.$invalid" on-tap="login.login()">
           Log In
         </button>
       </div>
      </form>
       <div class="padding">
-        <button class="button button-block link-button" ng-click="login.go('register')">
+        <button class="button button-block link-button" on-tap="login.go('register')">
           Register
         </button>
       </div>
     </ion-content>
 </ion-view>
-

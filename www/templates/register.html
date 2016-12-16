@@ -97,14 +97,15 @@
           <input type="password" ng-model="register.newUser.password" ng-minlength="6" required>
         </label>
       </div>
+      <h4 class='pets-search-error text-center'>{{ register.message.error }}</h4>
       <div class="padding">
-        <button class="button button-block button-royal" ng-disabled="registerForm.$invalid" ng-click="register.createUser()">
+        <button class="button button-block button-royal" ng-disabled="registerForm.$invalid" on-touch="register.createUser()">
           Register
         </button>
-      </div>      
+      </div>
      </form>
       <div class="padding">
-        <button class="button button-block link-button" ng-click="register.go('login')">
+        <button class="button button-block link-button" on-touch="register.go('login')">
           Log in
         </button>
       </div>

@@ -9,14 +9,16 @@
     PetsCtrl.$inject = ['$http', 'PetsData', '$ionicModal', '$scope', 'userDataService', 'authService', '$timeout']
     AccountCtrl.$inject = ['PetsData', 'userDataService', '$state', 'authService', '$ionicModal', '$scope', '$timeout', '$ionicPopup']
     SearchCtrl.$inject = ['PetsData', '$state', 'userDataService', 'authService']
-    LoginCtrl.$inject = ['authService', '$state']
-    RegisterCtrl.$inject = ['$http', 'authService', 'authToken', '$state']
+    LoginCtrl.$inject = ['authService', '$state', '$timeout']
+    RegisterCtrl.$inject = ['$http', 'authService', 'authToken', '$state', '$timeout']
 
     function PetsCtrl($http, PetsData, $ionicModal, $scope, userDataService, authService, $timeout) {
         var vm = this
         vm.pets = PetsData.pets
         vm.petsData = PetsData
-        authService.setUser()
+        if (authService.isLoggedIn()){
+          authService.setUser()
+        }
         vm.user = userDataService.user
 
         vm.showPet = {}
@@ -92,7 +94,9 @@
 
     function AccountCtrl (PetsData, userDataService, $state, authService, $ionicModal, $scope, $timeout, $ionicPopup) {
         var vm = this
-        authService.setUser()
+        if (authService.isLoggedIn()){
+          authService.setUser()
+        }
         vm.user = userDataService.user
         vm.isLoggedIn = authService.isLoggedIn;
         vm.updateUser = {}
@@ -141,11 +145,11 @@
             vm.user.chosenPets = vm.chosenPets
             userDataService.update(vm.user._id, vm.user)
         }
-        
+
         vm.sendPets = function(){
             $state.go('sending')
         }
-        
+
         vm.sendPetsPopup = function(){
             $ionicPopup.alert({
                 title: 'Your future fur babies are on their way!',
@@ -156,17 +160,27 @@
 
     }
 
-    function RegisterCtrl ($http, authService, authToken, $state){
+    function RegisterCtrl ($http, authService, authToken, $state, $timeout){
       var vm = this
       vm.newUser = {}
+      vm.message = {}
 
       vm.createUser = function() {
-          $http.post('http://localhost:3000/users', vm.newUser)
+          $http.post('https://guarded-shelf-13715.herokuapp.com/users', vm.newUser)
           .then(function(res){
-            authToken.setToken(res.data.token)
-            authService.setUser()
-            vm.newUser = {}
-            $state.go('tab.search')
+            console.log(res)
+            if(!res.data.error){
+              authToken.setToken(res.data.token)
+              authService.setUser()
+              vm.newUser = {}
+              $state.go('tab.search')
+            }
+            else {
+              vm.message.error = res.data.error;
+              $timeout(function(){
+                vm.message = {};
+              }, 3000)
+            }
           })
         }
 
@@ -176,10 +190,11 @@
 
     }
 
-    function LoginCtrl(authService, $state){
+    function LoginCtrl(authService, $state, $timeout){
       var vm = this
       vm.isLoggedIn = authService.isLoggedIn;
       vm.loginData = {}
+      vm.message = {}
 
       if(vm.isLoggedIn == true){
         $state.go('tab.search')
@@ -189,7 +204,16 @@
           authService.login(vm.loginData.email, vm.loginData.password)
             .then(function(res) {
               vm.loginData = {}
-              $state.go('tab.search');
+              if(res.data.error){
+                vm.message.error = res.data.error;
+                $timeout(function(){
+                  vm.message = {};
+                }, 3000)
+              }
+              else {
+                $state.go('tab.search');
+              }
+              console.log(res)
             });
         }
 
@@ -201,7 +225,9 @@
     function SearchCtrl (PetsData, $state, userDataService, authService) {
         var vm = this
         vm.data = {}
-        authService.setUser()
+        if (authService.isLoggedIn()){
+          authService.setUser()
+        }
         vm.user = userDataService.user
         vm.message = {}
 

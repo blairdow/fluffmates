@@ -13,18 +13,26 @@
     // create auth factory object
     var authFactory = {};
 
+    // get the logged in user
+    authFactory.setUser = function() {
+      userDataService.user = jwt_decode(authToken.getToken())._doc;;
+      return userDataService.user;
+    };
+
     // log a user in
     authFactory.login = function(email, password) {
 
       // return the promise object and its data
-      return $http.post('http://localhost:3000/login', {
+      return $http.post('https://guarded-shelf-13715.herokuapp.com/login', {
         email: email,
         password: password
       })
         .success(function(res) {
           authToken.setToken(res.token);
-          authFactory.setUser()
-
+          if (authFactory.isLoggedIn()){
+            authFactory.setUser()
+          }
+          console.log(res)
           return res.token;
         });
     };
@@ -45,12 +53,6 @@
         { return true;}
       else
         return false;
-    };
-
-    // get the logged in user
-    authFactory.setUser = function() {
-      userDataService.user = jwt_decode(authToken.getToken())._doc;;
-      return userDataService.user;
     };
 
     // return auth factory object
