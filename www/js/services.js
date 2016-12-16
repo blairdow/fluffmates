@@ -18,7 +18,7 @@
 
       vm.getPets = function(data){
 
-        return $http.get('https://guarded-shelf-13715.herokuapp.com/pets?' + $.param(data)).then(function(response){
+        return $http.get('http://localhost:3000/pets?' + $.param(data)).then(function(response){
             vm.error = ''
             vm.pets.push(...response.data)
             console.log('service vm.pets', vm.pets)

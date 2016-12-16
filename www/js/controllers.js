@@ -166,7 +166,7 @@
       vm.message = {}
 
       vm.createUser = function() {
-          $http.post('https://guarded-shelf-13715.herokuapp.com/users', vm.newUser)
+          $http.post('http://localhost:3000/users', vm.newUser)
           .then(function(res){
             console.log(res)
             if(!res.data.error){
@@ -204,14 +204,14 @@
           authService.login(vm.loginData.email, vm.loginData.password)
             .then(function(res) {
               vm.loginData = {}
-              if(res.data.error){
+              if(!res.data.error){
+                $state.go('tab.search');
+              }
+              else {
                 vm.message.error = res.data.error;
                 $timeout(function(){
                   vm.message = {};
                 }, 3000)
-              }
-              else {
-                $state.go('tab.search');
               }
               console.log(res)
             });

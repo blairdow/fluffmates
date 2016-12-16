@@ -23,7 +23,7 @@
     authFactory.login = function(email, password) {
 
       // return the promise object and its data
-      return $http.post('https://guarded-shelf-13715.herokuapp.com/login', {
+      return $http.post('http://localhost:3000/login', {
         email: email,
         password: password
       })
