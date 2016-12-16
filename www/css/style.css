@@ -1,5 +1,13 @@
 /* Empty. Add your own CSS if you like */
 
+body {
+    color: #818181;
+}
+
+h1, h2, h3, h4 {
+    color: #886aea;
+}
+
 .chosen-pet {
   border: #ff00f5 solid 3px;
 }
@@ -20,7 +28,7 @@
 .open-modal {
     display: inline-block;
     float: right;
-    
+
 }
 
 .ion-close-circled {
@@ -34,7 +42,58 @@
     text-align: center;
 }
 
-.padding: {
+.padding {
     padding-top: 5px;
     padding-bottom: -5px;
 }
+
+.no-search-results {
+    margin: 70vh 20px auto 20px;
+    background-color: rgba(244, 244, 244, 0.52);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.pets-search-error {
+    color: #ff6262;
+}
+
+.search-title {
+    padding: 10px;
+}
+
+.title-div, .link-button {
+    background-color: rgb(241, 237, 255);
+}
+
+.purple-bg {
+    background-color: #e8e1ff;
+}
+
+.no-search-results h4{
+    color: #cecece;
+}
+
+.main-paw {
+    padding-top: 20%;
+    font-size: 9em;
+    color: rgba(136, 106, 234, 0.52);
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.popup-paw {
+    color: rgba(136, 106, 234, 0.52);
+    font-size: 2em;
+    margin-bottom: 3px;
+}
+
+.container-popup {
+    margin: 4px;
+    border-radius: 5px;
+    padding: 9px;
+    height: auto;
+}
+

@@ -4,59 +4,69 @@
     angular.module('fluffMates')
     .factory('PetsData', PetsData)
 
-    PetsData.$inject = ['$http', '$ionicModal', 'userDataService']
+    PetsData.$inject = ['$http', '$ionicModal', 'userDataService', 'authService']
 
-  function PetsData($http, $ionicModal, userDataService) {
-      var vm = this
+  function PetsData($http, $ionicModal, userDataService, authService) {
+      var vm = {}
       vm.pets = []
-      vm.chosenPets = []
+      authService.setUser()
+      vm.chosenPets = userDataService.user.chosenPets
       vm.showPet = {}
+      vm.error = ''
 
       vm.getPets = function(data){
 
-        $http.get('http://localhost:3000/pets?' + $.param(data)).then(function(response){
+        return $http.get('http://localhost:3000/pets?' + $.param(data)).then(function(response){
+            vm.error = ''
             vm.pets.push(...response.data)
             console.log('service vm.pets', vm.pets)
         }, function(err){
-            console.log(err)
+            vm.error = "Invalid Zip Code, Try again!"
+
         })
       }
 
       vm.choosePet = function(pet, user) {
-        console.log('pet data user', user)
-        if(vm.chosenPets.indexOf(pet) < 0){
-              pet.chosen = true
-              vm.chosenPets.push(pet)
+        pet.chosen = true
 
+        var petIds = user.chosenPets.map(function(pet){
+          return pet.pet_id
+        })
+
+        console.log(pet)
+
+        var chosenPet = {
+          name: pet.name.$t,
+          img: pet.media.photos.photo[3].$t,
+          description: pet.description.$t,
+          pet_id: pet.id.$t,
+          chosen: true
+        }
+
+        if(petIds.indexOf(chosenPet.pet_id) < 0){
+              vm.chosenPets.push(chosenPet)
               //bump first selected pet from list if full (over three)
               if(vm.chosenPets.length > 3){
-                var removed = vm.chosenPets.shift()
-                removed.chosen = false
-                pet.chosen = true
-                console.log('removed', removed)
-              }
+                vm.chosenPets.shift()
+                }
             }
 
             // remove pet from list if already selected
-            else if(vm.chosenPets.indexOf(pet) > -1){
-                pet.chosen = false
-                vm.chosenPets.splice(vm.chosenPets.indexOf(pet), 1)
-            }
+        else if(petIds.indexOf(chosenPet.pet_id) > -1){
+            vm.chosenPets.splice(vm.chosenPets.indexOf(chosenPet), 1)
+        }
+
+            user.chosenPets = vm.chosenPets
 
             userDataService.update(user._id, user)
             .then(function(res){
               console.log(res)
+            }, function(err){
+              console.log(err)
             })
 
       }
 
-      var service = {
-        pets: vm.pets,
-        getPets: vm.getPets,
-        choosePet: vm.choosePet,
-        chosenPets: vm.chosenPets,
-      }
-
-      return service
+      return vm
     }
 })()

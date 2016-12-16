@@ -1,5 +1,17 @@
 <ion-view view-title="Register">
-    <ion-content>
+    <ion-content class='purple-bg'>
+    <div class="text-center">
+        <h1 class='padding'>Welcome to FluffMates!</h1>
+        <h4>Sign up to find your future fur babies</h4>
+        <ul>
+            <li class='bold'>
+                Choose your new pet and love it forever!
+            </li>
+        </ul>
+        <div>
+            <i class="ion-ios-paw-outline main-paw"></i>
+        </div>
+    </div>
      <form name="registerForm">
       <div class="list list-inset">
         <label class="item item-input">
@@ -86,13 +98,13 @@
         </label>
       </div>
       <div class="padding">
-        <button class="button button-block button-positive" ng-disabled="registerForm.$invalid" ng-click="register.createUser()">
+        <button class="button button-block button-royal" ng-disabled="registerForm.$invalid" ng-click="register.createUser()">
           Register
         </button>
       </div>      
      </form>
       <div class="padding">
-        <button class="button button-block button-stable" ng-click="register.go('login')">
+        <button class="button button-block link-button" ng-click="register.go('login')">
           Log in
         </button>
       </div>

@@ -1,6 +1,6 @@
 <ion-modal-view>
     <ion-content>
-       <div class="list card padding" ng-class="{ 'chosen-pet': pets.checkChosen(pets.showPet) }">
+       <div class="list card padding" ng-class="{ 'chosen-pet': pets.showPet.chosen }">
         <i class="ion-chevron-down close-modal" on-touch="pets.closeModal()"></i>
             <h2 class="center">{{pets.showPet.name.$t}}</h2>
 
@@ -11,9 +11,9 @@
                 <p class='text-center'>{{ pets.showPet.description.$t }}</p>
             </div>
 
-            <button ng-show="!pets.checkChosen(pets.showPet)" class="button button-block button-royal" on-tap="pets.choosePet(pets.showPet)">Add to List</button>
+            <button ng-show="!pets.showPet.chosen" class="button button-block button-royal" on-tap="pets.choosePet(pets.showPet)">Add to List</button>
 
-            <button ng-show="pets.checkChosen(pets.showPet)" class="button button-block button-assertive" on-touch="pets.removePet(pets.showPet)">Remove from List</button>
+            <button ng-show="pets.showPet.chosen" class="button button-block button-assertive" on-touch="pets.choosePet(pets.showPet)">Remove from List</button>
         </div>
     </ion-content>
 </ion-modal-view>

@@ -22,11 +22,9 @@
         password: password
       })
         .success(function(res) {
-          console.log('authservice', res)
           authToken.setToken(res.token);
           authFactory.setUser()
 
-          console.log("check it out", userDataService.user);
           return res.token;
         });
     };
@@ -44,20 +42,15 @@
     // checks if there is a local token
     authFactory.isLoggedIn = function() {
       if (authToken.getToken())
-{        console.log(authToken.getToken())
-        return true;}
+        { return true;}
       else
         return false;
     };
 
     // get the logged in user
     authFactory.setUser = function() {
-      var token = authToken.getToken().split('.')[1];
-      var user = JSON.parse($window.atob(token))._doc;
-      console.log('set user function', user)
-      userDataService.user = user;
-      console.log(userDataService.user)
-      return user;
+      userDataService.user = jwt_decode(authToken.getToken())._doc;;
+      return userDataService.user;
     };
 
     // return auth factory object

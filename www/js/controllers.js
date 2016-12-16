@@ -6,25 +6,45 @@
         .controller('LoginCtrl', LoginCtrl)
         .controller('RegisterCtrl', RegisterCtrl)
 
-    PetsCtrl.$inject = ['$http', 'PetsData', '$ionicModal', '$scope', 'userDataService', 'authService']
-    AccountCtrl.$inject = ['PetsData', 'userDataService', '$state', 'authService', '$ionicModal', '$scope', '$timeout']
+    PetsCtrl.$inject = ['$http', 'PetsData', '$ionicModal', '$scope', 'userDataService', 'authService', '$timeout']
+    AccountCtrl.$inject = ['PetsData', 'userDataService', '$state', 'authService', '$ionicModal', '$scope', '$timeout', '$ionicPopup']
     SearchCtrl.$inject = ['PetsData', '$state', 'userDataService', 'authService']
     LoginCtrl.$inject = ['authService', '$state']
     RegisterCtrl.$inject = ['$http', 'authService', 'authToken', '$state']
 
-    function PetsCtrl($http, PetsData, $ionicModal, $scope, userDataService, authService) {
+    function PetsCtrl($http, PetsData, $ionicModal, $scope, userDataService, authService, $timeout) {
         var vm = this
         vm.pets = PetsData.pets
+        vm.petsData = PetsData
         authService.setUser()
         vm.user = userDataService.user
 
         vm.showPet = {}
-        vm.chosenPets = []
+        vm.chosenPets = PetsData.chosenPets
+
+        vm.checkChosen = function(pet){
+            var petIDs = vm.chosenPets.map(function(pett){
+                return pett.pet_id
+            })
+
+            if(petIDs.indexOf(pet.id.$t) > -1){
+                return true
+            }
+            else if(petIDs.indexOf(pet.id.$t) < 0) {
+              return false
+            }
+        }
 
         vm.choosePet = function(pet){
             PetsData.choosePet(pet, vm.user)
             vm.chosenPets = PetsData.chosenPets
-            vm.user.chosenPets = vm.chosenPets            
+            vm.user.chosenPets = vm.chosenPets
+        }
+
+        vm.removePet = function(pet){
+            vm.chosenPets.splice(vm.chosenPets.indexOf(pet), 1)
+            vm.user.chosenPets = vm.chosenPets
+            userDataService.update(vm.user._id, vm.user)
         }
 
         vm.showPetInfo = function(pet){
@@ -44,6 +64,9 @@
 
         vm.closeModal = function(){
             vm.modal.hide()
+            $timeout(function(){
+                vm.modal.remove()
+            }, 4000)
         }
 
         vm.showChosenPets = function(){
@@ -60,12 +83,14 @@
         }
 
         vm.closeChosenModal = function(){
-            console.log('closed')
             vm.chosenPetsModal.hide()
+            $timeout(function(){
+                vm.chosenPetsModal.remove()
+            }, 4000)
         }
     }
 
-    function AccountCtrl (PetsData, userDataService, $state, authService, $ionicModal, $scope, $timeout) {
+    function AccountCtrl (PetsData, userDataService, $state, authService, $ionicModal, $scope, $timeout, $ionicPopup) {
         var vm = this
         authService.setUser()
         vm.user = userDataService.user
@@ -111,9 +136,24 @@
             authService.logout()
         }
 
-        vm.choosePet = function(pet){
-            PetsData.choosePet(pet, vm.user)
+        vm.removePet = function(pet){
+            vm.chosenPets.splice(vm.chosenPets.indexOf(pet), 1)
+            vm.user.chosenPets = vm.chosenPets
+            userDataService.update(vm.user._id, vm.user)
         }
+        
+        vm.sendPets = function(){
+            $state.go('sending')
+        }
+        
+        vm.sendPetsPopup = function(){
+            $ionicPopup.alert({
+                title: 'Your future fur babies are on their way!',
+                templateUrl: './templates/sending-pets.html',
+                okType: 'button-royal'
+            })
+        }
+
     }
 
     function RegisterCtrl ($http, authService, authToken, $state){
@@ -163,12 +203,16 @@
         vm.data = {}
         authService.setUser()
         vm.user = userDataService.user
-
-        console.log('service', vm.user)
+        vm.message = {}
 
         vm.sendSearch = function(){
             PetsData.pets.length = 0
             PetsData.getPets(vm.data)
+            .then(function(res){
+              if(res){
+                  console.log(res)
+              }
+            })
             vm.data = {}
             $state.go('tab.pets')
         }

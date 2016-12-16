@@ -3,13 +3,12 @@
     <ion-content>
         <i class="ion-chevron-down close-chosen-modal" on-touch="pets.closeChosenModal()"></i>
         <h3 class='center'>Potential Future Fur Babies</h3>
-        <ion-list>
-          <ion-item ng-repeat="pet in pets.chosenPets">
-            {{pet.name.$t}}
-            <img class="pet-main-image" src="{{pet.media.photos.photo[1].$t}}" alt="">
-            <i class="ion-close-circled" on-touch="pets.choosePet(pet)"></i>
-          </ion-item>
-        </ion-list>
+        <div class="list padding">
+          <div ng-repeat="pet in pets.chosenPets" class="item item-thumbnail-left title-div" on-double-tap="pets.showPetInfo(pet)">
+            <img class="pet-main-image" ng-src="{{pet.img}}">
+            <h2 class='pet-name'>{{ pet.name }}</h2>
+            <i class="ion-close-circled" on-touch="pets.removePet(pet)"></i>
+          </div>
+      </div>
     </ion-content>
 </ion-modal-view>
-

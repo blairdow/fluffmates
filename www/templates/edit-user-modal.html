@@ -1,5 +1,5 @@
 <ion-modal-view>
-    <ion-content>
+    <ion-content class='purple-bg'>
         <form name="editForm">
           <div class="list list-inset">
             <label class="item item-input">
@@ -8,7 +8,7 @@
             </label>
             <label class="item item-input">
               <span class="input-label">Email</span>
-              <input type="email" value="{{account.user.email}}" ng-model="account.updateUser.email" required>
+              <input type="text" value="{{account.user.email}}" ng-model="account.updateUser.email" required>
             </label>
             <label class="item item-input">
               <span class="input-label">Address</span>
@@ -22,7 +22,7 @@
                 <div class="input-label">
                   State
                 </div>
-                <select ng-model="account.updateUser.state" value = {{account.user.state}} required>
+                <select ng-model="account.updateUser.state" ng-value="{{account.user.state}}" required>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -86,10 +86,10 @@
             </label>
           </div>
           <div class="padding">
-            <button class="button button-block button-positive" on-touch="account.editUser()">
+            <button class="button button-block button-royal" on-touch="account.editUser()">
               Save
             </button>
-            <button class="button button-block button-stable" on-touch="account.closeEditModal()">
+            <button class="button button-block link-button" on-touch="account.closeEditModal()">
               Cancel
             </button>
           </div>

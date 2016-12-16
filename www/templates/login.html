@@ -1,5 +1,26 @@
 <ion-view view-title="Login">
-    <ion-content>
+    <ion-content class='purple-bg'>
+    <div class="text-center">
+        <h1 class='padding'>Welcome to FluffMates!</h1>
+        <h4>for the busy prospective pet owner</h4>
+        <ul>
+            <li>
+                Search for pets in your area
+            </li>
+            <li>
+                Pick your three faves
+            </li>
+            <li>
+                We hand-deliver them to you
+            </li>
+            <li class='bold'>
+                Choose your new pet and love it forever!
+            </li>
+        </ul>
+        <div>
+            <i class="ion-ios-paw-outline main-paw"></i>
+        </div>
+    </div>
      <form name='loginForm' novalidate>
       <div class="list list-inset">
         <label class="item item-input">
@@ -12,13 +33,13 @@
         </label>
       </div>
       <div class="padding">
-        <button class="button button-block button-positive" ng-disabled="loginForm.$invalid"  on-touch="login.login()">
+        <button class="button button-block button-royal" ng-disabled="loginForm.$invalid"  on-touch="login.login()">
           Log In
         </button>
       </div>
      </form>
       <div class="padding">
-        <button class="button button-block button-stable" ng-click="login.go('register')">
+        <button class="button button-block link-button" ng-click="login.go('register')">
           Register
         </button>
       </div>

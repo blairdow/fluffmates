@@ -1,28 +1,30 @@
 <ion-view view-title="Pets">
-    <ion-content class="has-footer center">
-        <div ng-hide="pets.pets[0]" class="no-search-results">
-          <h3>Click the search tab to search for your new furry friends!</h3>
+    <ion-content class="has-footer center purple-bg">
+        <div class='pets-search-error' ng-show="pets.petsData.error">
+          {{ pets.petsData.error }}
         </div>
-
+        <div ng-hide="pets.pets[0]" class="no-search-results">
+          <h4>Click the search tab to search for your new furry friends!</h4>
+        </div>
         <div ng-show="pets.pets[0]" class="search-results">
-          <h3 class="padding">Adopt us!</h3>
-          <p>Double click pet to add to your list. <br> Click pet's name to see more info.</p>
-          <div class="list card" ng-repeat="pet in pets.pets" ng-class="{ 'chosen-pet': pet.chosen }" on-double-tap="pets.choosePet(pet)">
+          <div class="list card title-div">
+              <h3 class='search-title'>Adopt us!</h3>
+              <p>Double click pet to add to your list. <br> Click pet's name to see more info.</p>
+          </div>
+          <div class="list card" ng-repeat="pet in pets.pets" ng-class="{ 'chosen-pet': pets.checkChosen(pet) }" on-double-tap="pets.choosePet(pet)">
             <div class="item item-image">
-              <img src="{{pet.media.photos.photo[2].$t}}">
+              <img ng-src="{{pet.media.photos.photo[2].$t}}">
             </div>
-            <div class="item">
-             <h2 class='center'>
-              <a on-touch="pets.showPetInfo(pet)">{{pet.name.$t}}</a>
-             </h2>
+            <div class="item  title-div">
+              <h2 class='center' on-touch="pets.showPetInfo(pet)">{{pet.name.$t}}</h2>
             </div>
           </div>
         </div>
     </ion-content>
 
 <!--    footer hidden when no pets are chosen-->
-    <ion-footer-bar ng-if="pets.chosenPets[0]" align-title="center" class="bar-royal" on-touch="pets.showChosenPets()">
-       <div>
+    <ion-footer-bar ng-if="pets.chosenPets[0]" align-title="center" class="bar-royal purple-bg" on-touch="pets.showChosenPets()">
+       <div class="purple-bg">
          <h1 class="title">My Pets</h1>
          <button class="button button-clear pull-right">
            <i class="ion-chevron-up pull-right"></i>
