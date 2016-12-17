@@ -18,10 +18,9 @@
 
       vm.getPets = function(data){
 
-        return $http.get('http://localhost:3000/pets?' + $.param(data)).then(function(response){
+        return $http.get('https://guarded-shelf-13715.herokuapp.com/pets?' + $.param(data)).then(function(response){
             vm.error = ''
             vm.pets.push(...response.data)
-            console.log('service vm.pets', vm.pets)
         }, function(err){
             vm.error = "Invalid Zip Code, Try again!"
 
@@ -34,8 +33,6 @@
         var petIds = user.chosenPets.map(function(pet){
           return pet.pet_id
         })
-
-        console.log(pet)
 
         var chosenPet = {
           name: pet.name.$t,

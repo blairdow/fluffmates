@@ -4,25 +4,25 @@
           <div class="list list-inset">
             <label class="item item-input">
               <span class="input-label">Name</span>
-              <input type="text" value="{{account.user.name}}" ng-model="account.updateUser.name" ng-minlength='3' required>
+              <input type="text" value="{{account.user.name}}" ng-model="account.user.name" ng-minlength='3' required>
             </label>
             <label class="item item-input">
               <span class="input-label">Email</span>
-              <input type="text" value="{{account.user.email}}" ng-model="account.updateUser.email" required>
+              <input type="text" value="{{account.user.email}}" ng-model="account.user.email" required>
             </label>
             <label class="item item-input">
               <span class="input-label">Address</span>
-              <input type="text" value="{{account.user.address}}" ng-model="account.updateUser.address" required>
+              <input type="text" value="{{account.user.address}}" ng-model="account.user.address" required>
             </label>
             <label class="item item-input">
               <span class="input-label">City</span>
-              <input type="text" value="{{account.user.city}}" ng-model="account.updateUser.city" required>
+              <input type="text" value="{{account.user.city}}" ng-model="account.user.city" required>
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
                   State
                 </div>
-                <select ng-model="account.updateUser.state" ng-value="{{account.user.state}}" required>
+                <select ng-model="account.user.state" ng-value="{{account.user.state}}" required>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -78,11 +78,11 @@
             </label>
             <label class="item item-input">
               <span class="input-label">Zip Code</span>
-              <input type="tel" value="{{account.user.zip_code}}" ng-model="account.updateUser.zip_code" ng-minlength="5" ng-maxlength="5" required>
+              <input type="tel" value="{{account.user.zip_code}}" ng-model="account.user.zip_code" ng-minlength="5" ng-maxlength="5" required>
             </label>
             <label class="item item-input">
               <span class="input-label">Password</span>
-              <input type="password" ng-model="account.updateUser.password" ng-minlength="6" required>
+              <input type="password" ng-model="account.user.password" ng-minlength="6" required>
             </label>
           </div>
           <div class="padding">

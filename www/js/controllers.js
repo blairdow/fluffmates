@@ -99,12 +99,10 @@
         }
         vm.user = userDataService.user
         vm.isLoggedIn = authService.isLoggedIn;
-        vm.updateUser = {}
 
         vm.chosenPets = PetsData.chosenPets
 
-        vm.editModal = function(user){
-            vm.updateUser = user
+        vm.editModal = function(){
 
             if(vm.modal) {vm.modal.remove()}
 
@@ -120,19 +118,17 @@
 
         vm.closeEditModal = function(){
             vm.modal.hide()
-            vm.updateUser = {}
             $timeout(function(){
                 vm.modal.remove()
             }, 4000)
         }
 
         vm.editUser = function(){
-            userDataService.update(vm.updateUser._id, vm.updateUser)
+            userDataService.update(vm.user._id, vm.user)
             .then(function(res){
-              console.log(res)
-              vm.closeEditModal()
-              authService.setUser()
               vm.user = userDataService.user
+              vm.closeEditModal()
+
             })
         }
 
@@ -166,9 +162,8 @@
       vm.message = {}
 
       vm.createUser = function() {
-          $http.post('http://localhost:3000/users', vm.newUser)
+          $http.post('https://guarded-shelf-13715.herokuapp.com/users', vm.newUser)
           .then(function(res){
-            console.log(res)
             if(!res.data.error){
               authToken.setToken(res.data.token)
               authService.setUser()

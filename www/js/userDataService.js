@@ -20,6 +20,7 @@
     // update a user
     userFactory.update = function(id, userData) {
       return $http.put('https://guarded-shelf-13715.herokuapp.com/users/' + id, userData);
+      authService.setUser()
     };
 //
 //    // delete a user
