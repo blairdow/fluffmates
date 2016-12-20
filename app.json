@@ -1,0 +1,7 @@
+{
+    "name": "FluffMates",
+    "description": "Ionic App using Petfinder API",
+    "repository": "https://github.com/blairdow/fluffmates",
+    "logo": "http://pathToYourLogo.png",
+    "keywords": ["ionic", "petfinder", "cats"]
+}
