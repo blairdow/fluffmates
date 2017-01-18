@@ -50,18 +50,18 @@
         }
 
         vm.showPetInfo = function(pet){
-          vm.showPet = pet
+            vm.showPet = pet
 
-          if(vm.modal) {vm.modal.remove()}
+            if(vm.modal) {vm.modal.remove()}
 
-          $ionicModal.fromTemplateUrl('./templates/pet-show-modal.html', {
-              scope: $scope,
-              animation: 'slide-in-up'
-          })
-          .then(function(modal){
-              vm.modal = modal
-              vm.modal.show()
-          })
+            $ionicModal.fromTemplateUrl('./templates/pet-show-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            })
+            .then(function(modal){
+                vm.modal = modal
+                vm.modal.show()
+            })
         }
 
         vm.closeModal = function(){
@@ -140,10 +140,6 @@
             vm.chosenPets.splice(vm.chosenPets.indexOf(pet), 1)
             vm.user.chosenPets = vm.chosenPets
             userDataService.update(vm.user._id, vm.user)
-        }
-
-        vm.sendPets = function(){
-            $state.go('sending')
         }
 
         vm.sendPetsPopup = function(){
